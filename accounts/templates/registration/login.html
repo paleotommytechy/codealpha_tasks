@@ -1,0 +1,55 @@
+{% extends 'auth_base.html' %}
+{% block title %}Login{% endblock title %}
+
+{% block auth %}
+<h2 class="text-white text-center mb-5">TommyTech Store Login</h2>
+{% if messages %}
+    <div class="messages.container">
+        {% for message in messages %}
+            {% if message.tags == 'error' %}
+            <div class="alert alert-danger">
+                <a>{{message}}</a>
+            </div>
+            {% elif message.tags == 'success' %}
+            <div class="alert alert-success">
+                <a>{{message}}</a>
+            </div>
+            {% else %}
+            <div class="alert alert-info">
+                <a></a>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}
+<!-- Login Form -->
+<form method="post" action="{% url 'accounts:login' %}">
+    {% csrf_token %}
+    <!-- Email Input -->
+    <div class="mb-3 input-group">
+        <span class="input-group-text"><i class="fas fa-user"></i></span>
+        <input type="text" class="form-control" placeholder="Enter your username" name="username">
+    </div>
+
+    <!-- Password Input -->
+    <div class="mb-3 input-group">
+        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+        <input type="password" id="password" class="form-control" placeholder="Enter your password" name="password">
+    </div>
+
+    <div class="mb-3 text-end">
+        <small style="cursor: pointer;" class="showPasswordToggle py-3 ">SHOW</small>
+    </div>
+
+    <!-- Login Button -->
+    <button type="submit" class="btn btn-primary w-100">Login</button>
+
+    <!-- Forgot Password -->
+    <div class="mt-3 d-flex justify-content-center">
+        <a href="{% url 'accounts:password_reset' %}" class="text-white-50">Forgot Password?</a>
+    </div>
+
+    <!-- Signup Link -->
+    <p class="text-white mt-3 d-flex justify-content-center">Don't have an account? <a href="{% url 'accounts:register' %}" style="margin-left:5px;"  class="text-primary">Sign Up</a></p>
+</form>
+{% endblock auth %}
